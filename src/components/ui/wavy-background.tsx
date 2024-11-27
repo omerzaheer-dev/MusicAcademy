@@ -59,7 +59,7 @@ export const WavyBackground = ({
       ctx.filter = `blur(${blur}px)`;
     };
     render();
-  }, [render]);
+  }, []);
 
   const waveColors = colors ?? [
     "#38bdf8",
@@ -106,7 +106,7 @@ export const WavyBackground = ({
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [animationId, init]);
+  }, [init]);
 
   return (
     <div
