@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
@@ -46,7 +46,7 @@ export const WavyBackground = ({
     }
   };
 
-  const init = () => {
+  const init = useCallback(() => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth;
@@ -59,7 +59,7 @@ export const WavyBackground = ({
       ctx.filter = `blur(${blur}px)`;
     };
     render();
-  };
+  }, [render]);
 
   const waveColors = colors ?? [
     "#38bdf8",
@@ -92,13 +92,6 @@ export const WavyBackground = ({
     animationId = requestAnimationFrame(render);
   };
 
-  useEffect(() => {
-    init();
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, [animationId, init]);
-
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
     // I'm sorry but i have got to support it on safari.
@@ -108,6 +101,12 @@ export const WavyBackground = ({
       !navigator.userAgent.includes("Chrome")
     );
   }, []);
+  useEffect(() => {
+    init();
+    return () => {
+      cancelAnimationFrame(animationId);
+    };
+  }, [animationId, init]);
 
   return (
     <div
