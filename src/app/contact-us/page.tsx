@@ -7,11 +7,7 @@ import { UpcommingWbinars } from "@/components/UpcommingWbinars";
 export default function Home() {
   return (
     <div className="min-h-screen bg-black/[0.96] overflow-y-auto antialiased">
-      <HeroSection />
-      <FeaturedCourses />
-      {/* <StickyScrollRevealDemo /> */}
-      <InfiniteMovingCardsDemo />
-      <UpcommingWbinars />
+      <MeetOurInstructor />
     </div>
   );
 }
